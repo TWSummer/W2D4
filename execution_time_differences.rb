@@ -1,3 +1,5 @@
+require 'benchmark'
+
 def my_min_1(array)
   array.each_index do |idx1|
     return array[idx1] if array.all? { |el| array[idx1] <= el }
@@ -15,9 +17,9 @@ end #O(n) time complexity
 
 
 
-array = [0,3,5,-6,16,-2]
-p my_min_1(array)
-p my_min_2(array)
+# array = [0,3,5,-6,16,-2]
+# p my_min_1(array)
+# p my_min_2(array)
 
 
 def sub_sum_1(array)
@@ -35,8 +37,8 @@ def sub_sum_1(array)
 end # O(n^2) time complexity
 
 
-list=[5,3,-7]
-p sub_sum_1(list)
+# list=[5,3,-7]
+# p sub_sum_1(list)
 
 
 def sub_sum_2(array)
@@ -51,5 +53,14 @@ def sub_sum_2(array)
   max_so_far
 end
 
-list = [2, 3, -6, 7, -6, 7]
-p sub_sum_2(list)
+# list = [2, 3, -6, 7, -6, 7]
+# p sub_sum_2(list)
+
+arr=(0..400).to_a.shuffle
+
+Benchmark.bm(10) do |x|
+  x.report("my_min_1") {my_min_1(arr)}
+  x.report("my_min_2") {my_min_2(arr)}
+  x.report("sub_sum_1") {sub_sum_1(arr)}
+  x.report("sub_sum_2") {sub_sum_2(arr)}
+end
